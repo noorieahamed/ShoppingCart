@@ -13,9 +13,11 @@ public interface CartDAO {
 	
 	public boolean update(Cart cart);
 	
-	public Cart get(String ID);
+	public boolean update(String emailID);
 	
-	public boolean delete(String ID);
+	public Cart get(String id);
+	
+	public boolean delete(String id);
 	
 	
 	//to get all the carts add by a particular user

@@ -14,12 +14,13 @@ import org.springframework.stereotype.Repository;
 import com.niit.shoppingcart.dao.SupplierDAO;
 import com.niit.shoppingcart.domain.Supplier;
 
+//another annotation...
 @Transactional
-@Repository("supplierDAO") // will create instance of SupplierDAOImpl
+@Repository("supplierDAO") // will create instance of SupplierDAOImpl and the name will supplierDAO
 public class SupplierDAOImpl implements SupplierDAO {
 
-	// first inject hibernate session
-	// @Autowired
+	// first - inject hibernate session.
+	// @Autowire
 
 	@Autowired // session factory will automatically inject in this class
 	private SessionFactory sessionFactory;
@@ -27,25 +28,26 @@ public class SupplierDAOImpl implements SupplierDAO {
 	@Autowired
 	private Supplier supplier;
 
+	//
 	public boolean save(Supplier supplier) {
-		// store in the DB
+		// store in the database.
 		try {
-			
 			sessionFactory.getCurrentSession().save(supplier);
 			return true;
 		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
+
 	}
 
 	public boolean update(Supplier supplier) {
-
 		try {
-			
 			sessionFactory.getCurrentSession().update(supplier);
 			return true;
 		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -53,49 +55,33 @@ public class SupplierDAOImpl implements SupplierDAO {
 	}
 
 	public Supplier get(String emailID) {
-		// fetch record based on email id and store in the class
-		try {
-			Supplier supplier = sessionFactory.getCurrentSession().get(Supplier.class,emailID);
-
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			return null;
-		}
-		return supplier;
+		// it will fetch the record based on emailID and store in Supplier class
+		return sessionFactory.getCurrentSession().get(Supplier.class, emailID);
 
 	}
 
 	public boolean delete(String emailID) {
 		try {
 			supplier = get(emailID);
-			if (supplier != null) {
-				sessionFactory.getCurrentSession().delete(supplier);
-			} else {
+			if (supplier == null) {
 				return false;
 			}
+
+			sessionFactory.getCurrentSession().delete(supplier);
+
 			return true;
 		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
+
 	}
 
-	/*public List<Supplier> list() {
-		return sessionFactory.getCurrentSession().createQuery("from Supplier").list();
-	}
-*/
-	/*public Supplier validate(String id, String mobilename) {
-		Object Description = null;
-		return (Supplier)sessionFactory.getCurrentSession().
-		createCriteria(Supplier.class).
-		add(Restrictions.eq("id",id )).
-		add(Restrictions.eq("Address",address)).
-		uniqueResult();
-	}
-*/
 	public List<Supplier> list() {
-		// TODO Auto-generated method stub
-		return sessionFactory.getCurrentSession().createQuery("from Supplier").list();
+	return	sessionFactory.getCurrentSession().createQuery("from Supplier").list();
 	}
+
+	
 
 }

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class User {
 	
 	@Id //specify Primary Key
-	private String emailId;
+	private String emailID;
 	private String name;
 	
 	@Column(name="password")
@@ -25,11 +25,14 @@ public class User {
 	private String mobile;
 	private Character role;
 	private String registeredDate;
-	public String getEmailId() {
-		return emailId;
+	
+	
+	
+	public String getEmailID() {
+		return emailID;
 	}
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+	public void setEmailID(String emailID) {
+		this.emailID = emailID;
 	}
 	public String getName() {
 		return name;

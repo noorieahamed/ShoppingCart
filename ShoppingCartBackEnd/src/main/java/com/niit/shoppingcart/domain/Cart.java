@@ -1,6 +1,8 @@
 package com.niit.shoppingcart.domain;
 
-import javax.annotation.Generated;
+import java.util.Random;
+import java.util.UUID;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,21 +12,42 @@ import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
-@Component
-@Entity
+@Component  //create singleton instance
+@Entity     //to specify it is going to map to table
 @Table
-
 public class Cart {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-
+	@Id    //to specify that it is primary key
+	//@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	private String emailID;
+	private String productName;
+	private int price;
+	private int quantity;
+	private String productID;
+	
+	
+	public String getProductID() {
+		return productID;
+	}
+	public void setProductID(String productID) {
+		this.productID = productID;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	@Transient     ///we are not going persist/save this data in table.
+	private int total;
+	
+	
 	public int getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setId() {
+		this.id = new Random().nextInt();
 	}
 	public String getEmailID() {
 		return emailID;
@@ -47,16 +70,17 @@ public class Cart {
 	public int getQuantity() {
 		return quantity;
 	}
-	public void setQuantity(int quatity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	private String emailID;
-	private String productName;
-	private int price;
-	private int quantity;
 	
-	@Transient      //we are not going persist/save this data in table.
-	private int total;
+	
+	
+	
+	
+	
+	
+	
 	
 
 }

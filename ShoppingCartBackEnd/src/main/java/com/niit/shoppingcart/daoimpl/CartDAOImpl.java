@@ -11,15 +11,17 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 import com.niit.shoppingcart.dao.CartDAO;
 import com.niit.shoppingcart.domain.Cart;
 
+//another annotation...
 @Transactional
-@Repository("cartDAO") // will create instance of CartDAOImpl
+@Repository("cartDAO") // will create instance of CartDAOImpl and the name will cartDAO
 public class CartDAOImpl implements CartDAO {
 
-	// first inject hibernate session
-	// @Autowired
+	// first - inject hibernate session.
+	// @Autowire
 
 	@Autowired // session factory will automatically inject in this class
 	private SessionFactory sessionFactory;
@@ -27,24 +29,26 @@ public class CartDAOImpl implements CartDAO {
 	@Autowired
 	private Cart cart;
 
+	//
 	public boolean save(Cart cart) {
-		// store in the DB
+		// store in the database.
 		try {
-			
 			sessionFactory.getCurrentSession().saveOrUpdate(cart);
 			return true;
 		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
+
 	}
 
 	public boolean update(Cart cart) {
-
 		try {
 			sessionFactory.getCurrentSession().update(cart);
 			return true;
 		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -52,49 +56,41 @@ public class CartDAOImpl implements CartDAO {
 	}
 
 	public Cart get(String id) {
-		// fetch record based on email id and store in the class
-		try {
-			Cart cart = sessionFactory.getCurrentSession().get(Cart.class,id);
-
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			return null;
-		}
-		return cart;
+		// it will fetch the record based on id and store in Cart class
+		return sessionFactory.getCurrentSession().get(Cart.class, id);
 
 	}
 
 	public boolean delete(String id) {
 		try {
 			cart = get(id);
-			if (cart != null) {
-				sessionFactory.getCurrentSession().delete(cart);
-			} else {
+			if (cart == null) {
 				return false;
 			}
+
+			sessionFactory.getCurrentSession().delete(cart);
+
 			return true;
 		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
+
 	}
 
+	
 	public List<Cart> list(String emailID) {
-		return sessionFactory.getCurrentSession().createQuery("from Cart").list();
+		// TODO Auto-generated method stub
+		return sessionFactory.getCurrentSession().createCriteria(Cart.class)
+				.add(Restrictions.eqOrIsNull("emailID", emailID)).list();
 	}
 
-	/*public Cart validate(String id, String mobilename) {
-		Object Description = null;
-		return (Cart)sessionFactory.getCurrentSession().
-		createCriteria(Cart.class).
-		add(Restrictions.eq("id",id )).
-		add(Restrictions.eq("description",Description)).
-		uniqueResult();
+	public boolean update(String emailID) {
+		// TODO Auto-generated method stub
+		return false;
 	}
-*/
-//	public List<Cart> list() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+
+
 
 }

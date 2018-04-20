@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-import com.niit.shoppingcart.dao.SupplierDAO;
+
 
 //whenever it scans all the classes under particular package,
 //will create instance of this class.
@@ -69,23 +69,26 @@ import com.niit.shoppingcart.dao.SupplierDAO;
 			return category;
 		}
 		
-		public void setSupplierId(String string) {
-			// TODO Auto-generated method stub
+		public void setSupplierId(String supplierId) {
 			
-		}
-		public void setSupplierId(Supplier supplierId) {
 			// TODO Auto-generated method stub
-			this.supplier=supplier;
+			this.supplierId = supplierId;
+		}
+		public void setSupplier(Supplier supplier) {
+			// TODO Auto-generated method stub
+			this.supplier = supplier;
 
 			
 		}
-		public void setCategoryId(Category category) {
+		public void setCategory(Category category) {
 			// TODO Auto-generated method stub
-			this.categoryId=categoryId;
+			this.category = category;
 
 		}
-		public void setCategoryId(String string) {
+		public void setCategoryId(String categoryId) {
 			// TODO Auto-generated method stub
+			this.categoryId = categoryId;
+			
 			
 		}
 						

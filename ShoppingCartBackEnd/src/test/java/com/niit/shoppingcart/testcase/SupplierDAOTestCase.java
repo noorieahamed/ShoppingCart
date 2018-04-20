@@ -1,6 +1,8 @@
 package com.niit.shoppingcart.testcase;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 //import java.util.List;
 
@@ -11,8 +13,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.niit.shoppingcart.dao.SupplierDAO;
 import com.niit.shoppingcart.domain.Supplier;
-
-import antlr.collections.List;
 
 public class SupplierDAOTestCase{
 

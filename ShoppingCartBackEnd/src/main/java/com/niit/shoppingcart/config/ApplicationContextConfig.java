@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @Configuration
-@ComponentScan("com.niit.shopingcart")
+@ComponentScan("com.niit.shoppingcart")
 @EnableTransactionManagement
 public class ApplicationContextConfig {
 
@@ -25,7 +25,7 @@ public class ApplicationContextConfig {
 	public DataSource getH2DataSource() {
 
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setUrl("jdbc:h2:tcp://localhost/~/shoppingcartdb");
+		dataSource.setUrl("jdbc:h2:tcp://localhost/~/shoppingcartsa");
 
 		dataSource.setDriverClassName("org.h2.Driver");
 
@@ -41,7 +41,7 @@ public class ApplicationContextConfig {
 		Properties properties = new Properties();
 		
 		properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-		properties.put("hibernate.hdm2ddl.auto","create");
+		//properties.put("hibernate.hdm2ddl.auto","update");
 		properties.put("hibernate.show_sql", "true");
 		return properties;
 	}
@@ -53,7 +53,7 @@ public class ApplicationContextConfig {
 		LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
 		sessionBuilder.addProperties(getHibernateProperties());
 		
-		sessionBuilder.scanPackages("com.niit.shoppingcart.domain");
+		sessionBuilder.scanPackages("com.niit");
 	
 		return sessionBuilder.buildSessionFactory();
 	}

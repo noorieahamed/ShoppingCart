@@ -46,9 +46,9 @@ public class CategoryDAOTestCase{
 	public void saveCategoryTestCase()
 	{
 		category = new Category();
-		category.setId("WomensCategory001");
-		category.setName("Women");
-		category.setDescription("this is a women Category");
+		category.setId("vase001");
+		category.setName("flower vase");
+		category.setDescription("this is a vase");
 				
 		
 		boolean status = categoryDAO.save(category);		
@@ -101,6 +101,12 @@ public class CategoryDAOTestCase{
 		List<Category> categorys = categoryDAO.list();
 		assertEquals("get all users",3,categorys.size());
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 

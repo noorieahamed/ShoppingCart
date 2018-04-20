@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -14,12 +15,13 @@ import org.springframework.stereotype.Repository;
 import com.niit.shoppingcart.dao.CategoryDAO;
 import com.niit.shoppingcart.domain.Category;
 
+//another annotation...
 @Transactional
-@Repository("categoryDAO") // will create instance of CategoryDAOImpl
+@Repository("categoryDAO") // will create instance of CategoryDAOImpl and the name will categoryDAO
 public class CategoryDAOImpl implements CategoryDAO {
 
-	// first inject hibernate session
-	// @Autowired
+	// first - inject hibernate session.
+	// @Autowire
 
 	@Autowired // session factory will automatically inject in this class
 	private SessionFactory sessionFactory;
@@ -27,27 +29,26 @@ public class CategoryDAOImpl implements CategoryDAO {
 	@Autowired
 	private Category category;
 
+	//
 	public boolean save(Category category) {
-		// store in the DB
+		// store in the database.
 		try {
-			
 			sessionFactory.getCurrentSession().saveOrUpdate(category);
 			return true;
 		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
+
 	}
 
 	public boolean update(Category category) {
-
 		try {
-			if(get(category.getId())==null) {
-				return false;
-			}
 			sessionFactory.getCurrentSession().update(category);
 			return true;
 		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -55,49 +56,38 @@ public class CategoryDAOImpl implements CategoryDAO {
 	}
 
 	public Category get(String id) {
-		// fetch record based on email id and store in the class
-		try {
-			Category category = sessionFactory.getCurrentSession().get(Category.class,id);
-
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			return null;
-		}
-		return category;
+		// it will fetch the record based on id and store in Category class
+		return sessionFactory.getCurrentSession().get(Category.class, id);
 
 	}
 
 	public boolean delete(String id) {
 		try {
 			category = get(id);
-			if (category != null) {
-				sessionFactory.getCurrentSession().delete(category);
-			} else {
+			if (category == null) {
 				return false;
 			}
+
+			sessionFactory.getCurrentSession().delete(category);
+
 			return true;
 		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
+
 	}
 
+	@SuppressWarnings("deprecation")
 	public List<Category> list() {
-		return sessionFactory.getCurrentSession().createQuery("from Category").list();
+	//return	sessionFactory.getCurrentSession().createQuery("from Category").list();
+		return (List<Category>) 
+		          sessionFactory.getCurrentSession()
+				.createCriteria(Category.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
-	/*public Category validate(String id, String mobilename) {
-		Object Description = null;
-		return (Category)sessionFactory.getCurrentSession().
-		createCriteria(Category.class).
-		add(Restrictions.eq("id",id )).
-		add(Restrictions.eq("description",Description)).
-		uniqueResult();
-	}
-*/
-//	public List<Category> list() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+
 
 }

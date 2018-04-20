@@ -28,7 +28,7 @@ public class UserDAOTestCase {
 		context=new AnnotationConfigApplicationContext();
 		//scan the complete package and check for annotations like
 		//@component,@controller,@repository,@service
-		context.scan("com.niit");
+		context.scan("com.niit.shoppingcart");
 		//clear the context(bean factory and recreate all the
 		//instances of the classes which are there in com.niit
 		//with proper annotations
@@ -42,7 +42,7 @@ public class UserDAOTestCase {
 	@Test
 	public void saveUserTestCase()
 	{
-		user.setEmailId("noorie@gmail.com");
+		user.setEmailID("noorie78@gmail.com");
 		user.setMobile("9790795480");
 		user.setName("noorie");
 		user.setPwd("1234");		
@@ -55,7 +55,7 @@ public class UserDAOTestCase {
 	public void updateUserTestCase()
 	{
 		user = new User();
-		user.setEmailId("sara@gmail.com");
+		user.setEmailID("sara@gmail.com");
 		user.setMobile("9962037012");
 		
 		boolean status=userDAO.update(user);

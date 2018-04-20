@@ -12,16 +12,18 @@ import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.niit.shoppingcart.dao.UserDAO;
 import com.niit.shoppingcart.domain.User;
+@Service
 
 @Transactional
 @Repository("userDAO") // will create instance of UserDAOImpl
 public class UserDAOImpl implements UserDAO {
-
-	//Logger Log = LoggerFactory.getLogger(UserDAOImpl.class);
-	//private static final Logger log = LoggerFactory.getLogger(UserDAOImpl.class);
+	
+	private static final org.jboss.logging.Logger log = LoggerFactory.logger(UserDAOImpl.class);
+	/*private static final Logger log = LoggerFactory.getLogger(UserDAOImpl.class);*/
 	// first inject hibernate session
 	// @Autowired
 
@@ -32,14 +34,12 @@ public class UserDAOImpl implements UserDAO {
 	private User user;
 
 	public boolean save(User user) {
-		
-		//Log.debug("Starting of the save method");
 		// store in the DB
 		try {
 			user.setRole('c');
 			user.setRegisteredDate(new Date(System.currentTimeMillis()) + "");
 			sessionFactory.getCurrentSession().save(user);
-			//log.debug("starting of the get method");
+			log.debug("Ending of the save method");
 			return true;
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -48,68 +48,60 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	public boolean update(User user) {
-		//Log.debug("Ending of the update method");
+		log.debug("Starting of the update method");
 		try {
-			if(get(user.getEmailId())==null) {
-				return false;
-			}
 			sessionFactory.getCurrentSession().update(user);
-			//Log.debug("Ending of the update method");
+			log.debug("Ending of the update method");
 			return true;
 		} catch (HibernateException e) {
 			e.printStackTrace();
-			//Log.error("error occured in update method"+e.printStackTrace());
+			log.error("error occured in delete method" + e.getMessage());
 			return false;
 		}
 
 	}
 
-	public User get(String EmailID) {
+	public User get(String emailID) {
+		
+		log.debug("Starting of the get method");
 		// fetch record based on email id and store in the class
-		try {
-			User user = sessionFactory.getCurrentSession().get(User.class, EmailID);
-			return user;
-
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			return null;
-		}
+		
+		 return sessionFactory.getCurrentSession().get(User.class, emailID);
+		
 
 	}
 
-	public boolean delete(String EmailID) {
+	public boolean delete(String emailID) {
+		log.debug("Starting of the delete method");
 		try {
-			user = get(EmailID);
-			if (user != null) {
-				sessionFactory.getCurrentSession().delete(user);
-			} else {
+			user = get(emailID);
+			if (user == null) {
 				return false;
 			}
-			return true;
+				sessionFactory.getCurrentSession().delete(user);
+				log.debug("Ending of the delete method");
+			    return true;
 		} catch (HibernateException e) {
 			e.printStackTrace();
+			log.error("error occured in delete method" + e.getMessage());
 			return false;
 		}
 	}
 
 	public List<User> list() {
+		log.debug("Starting of the list method");
 		return sessionFactory.getCurrentSession().createQuery("from User").list();
 	}
 
-	public User validate(String EmailID, String password) {
-		//Log.debug("Starting of the validate method");
-		//Log.info("user"+ emailId + "trying to login");
-		return (User)sessionFactory.getCurrentSession().
+	public User validate(String emailID, String password) {
+		log.debug("Starting of the validate method");
+		log.info(" user " + emailID + "trying to login");
+	User user = (User)sessionFactory.getCurrentSession().
 		createCriteria(User.class).
-		add(Restrictions.eq("EmailID",EmailID )).
+		add(Restrictions.eq("emailID",emailID )).
 		add(Restrictions.eq("pwd",password)).
 		uniqueResult();
-		
-	}
-
-	public User getUser(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	return user;
 	}
 
 }
