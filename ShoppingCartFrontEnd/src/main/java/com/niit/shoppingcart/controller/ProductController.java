@@ -100,7 +100,7 @@ public class ProductController {
 			@RequestParam("price") String price,
 			@RequestParam("categoryID") String categoryID,
 			@RequestParam("supplierID") String supplierID,
-			@RequestParam("img") MultipartFile file
+			@RequestParam("file") MultipartFile file
 			
 			) {
 
@@ -123,7 +123,7 @@ public class ProductController {
 			}
 			else
 			{
-				mv.addObject("uploadMessage", "Coulod not upload image");
+				mv.addObject("uploadMessage", "Could not upload image");
 			}
 		} else {
 			mv.addObject("productErrorMessage", "Could not able to create product.  please contact admin");

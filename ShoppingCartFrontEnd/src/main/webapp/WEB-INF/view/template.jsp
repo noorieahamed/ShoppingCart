@@ -9,10 +9,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <body class="w3-content" style="max-width:1200px">
 
-<div class="w3-panel">
-  <i class="w3-xlarge fa fa-bars"></i>
-</div>
-
 
 
 <!-- Second Grid: Resent -->
@@ -21,10 +17,10 @@
 </div>
 <div class="w3-row">
 <div class="w3-half w3-container">
-  <img src="resources\images\Capture.PNG" style="width:100%">
+  <img src="resources/images/Capture.PNG" style="width:100%">
 </div>
 <div class="w3-half w3-container">
-  <img src="resources\images\Capture1.PNG" style="width:100%">
+  <img src="resources/images/Capture1.PNG" style="width:100%">
 
 <p class="w3-xlarge w3-text-grey">
   Demos, Logos, Reports, Names, Events, Media, Wordpress, Google, Books, Optimisations</p>
@@ -35,9 +31,9 @@
 <div class="w3-row w3-section">
   <div class="w3-third w3-container w3-black w3-large" style="height:250px">
     <h2>Contact Info</h2>
-    <p><i class="fa fa-map-marker" style="width:30px"></i> Chicago, US</p>
+    <p><i class="fa fa-map-marker" style="width:30px"></i> Delhi,India>
     <p><i class="fa fa-phone" style="width:30px"></i> Phone: +00 151515</p>
-    <p><i class="fa fa-envelope" style="width:30px"> </i> Email: mail@mail.com</p>
+    <p><i class="fa fa-envelope" style="width:30px"> </i> Email: scarlet_decor@gmail.com</p>
   </div>
   <div class="w3-third w3-center w3-large w3-dark-grey w3-text-white" style="height:250px">
     <h2>Contact Us</h2>
@@ -53,9 +49,7 @@
     <i class="w3-xlarge fa fa-linkedin"></i>
   </div>
 </div>
-<div class="w3-container w3-text-grey">
-  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-</div>
+
 
 </body>
 </html>
